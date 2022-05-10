@@ -12,27 +12,32 @@ struct ContentView: View {
     @State private var isDragging = false
     
     var body: some View {
-        
-        
-        VStack {
-            //child gesture is given priority by default
-            Text("Hello, world!")
-                .onTapGesture {
-                    print("Text Tapped")
+        let dragGesture = DragGesture()
+            .onChanged { value in
+                offset = value.translation
+            }
+            .onEnded { _ in
+                withAnimation {
+                    offset = .zero
+                    isDragging = false
                 }
-                
-        }
-//        .onTapGesture {
-//            print("VStack Tapped")
-        //overrides default child priority
-//        .highPriorityGesture(
-        //makes gestures work together (no override)
-        .simultaneousGesture(
-            TapGesture()
-                .onEnded {
-                    print("VStack Tapped")
+            }
+        
+        let pressGesture = LongPressGesture()
+            .onEnded { value in
+                withAnimation {
+                    isDragging = true
                 }
-        )
+            }
+        
+        let combinedGesture = pressGesture.sequenced(before: dragGesture)
+        
+        return Circle()
+            .fill(.red)
+            .frame(width: 64, height: 64)
+            .scaleEffect(isDragging ? 1.5 : 1)
+            .offset(offset)
+            .gesture(combinedGesture)
         
     }
 }
