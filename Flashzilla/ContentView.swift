@@ -10,24 +10,15 @@ import SwiftUI
 struct ContentView: View {
     
     var body: some View {
-        ZStack {
-            Rectangle()
-                .fill(.blue)
-                .frame(width: 300, height: 300)
-                .onTapGesture {
-                    print("Rectangle Tapped")
-                }
-            //same frame but only 'taps' when touch circle itself
-            Circle()
-                .fill(.red)
-                .frame(width: 300, height: 300)
-                //makes entire frame count as tap area
-                .contentShape(Rectangle())
-                .onTapGesture {
-                    print("Circle Tapped")
-                }
-                //tap on circle is ignored
-//                .allowsHitTesting(false)
+        VStack {
+            Text("Hello")
+            Spacer().frame(height: 100)
+            Text("World")
+        }
+        //makes the Spacer() tappable area
+        .contentShape(Rectangle())
+        .onTapGesture {
+            print("VStack Tapped")
         }
     }
 }
