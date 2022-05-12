@@ -8,22 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
-    @Environment(\.scenePhase) var scenePhase
+    @Environment(\._accessibilityDifferentiateWithoutColor) var diffWithoutColor
+    @Environment(\._accessibilityReduceMotion) var reduceMotion
     var body: some View {
-        Text("hello world")
-            .padding()
-            .onChange(of: scenePhase) { newPhase in
-                //in app
-                if newPhase == .active {
-                    print("Active")
-                //if can be seen but not interactable
-                } else if newPhase == .inactive {
-                    print("Inactive")
-                //cannot be seen by user (home screen)
-                } else if newPhase == .background {
-                    print("Background")
-                }
+        HStack {
+            if diffWithoutColor {
+                Image(systemName: "checkmark.circle")
             }
+            
+            Text("Success")
+        }
+        .padding()
+        .background(diffWithoutColor ? .black : .green)
+        .foregroundColor(.white)
+        .clipShape(Capsule())
     }
 }
 
