@@ -11,13 +11,25 @@ struct CardView: View {
     let card: Card
     var removal: (() -> Void)? = nil
     
+    //for red green color blindness
+    @Environment(\.accessibilityDifferentiateWithoutColor) var diffWithoutColor
     @State private var showingAnswer = false
     @State private var offset = CGSize.zero
     
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 25, style: .continuous)
-                .fill(.white)
+                .fill(
+                    diffWithoutColor
+                    ? .white
+                    : .white.opacity(1 - Double(abs(offset.width / 50)))
+                )
+                .background(
+                    diffWithoutColor
+                    ? nil
+                    : RoundedRectangle(cornerRadius: 25, style: .continuous)
+                        .fill(offset.width > 0 ? .green : .red)
+                )
                 .shadow(radius: 10)
             
             VStack {
@@ -38,6 +50,7 @@ struct CardView: View {
         .frame(width: 450, height: 250)
         .rotationEffect(.degrees(Double(offset.width*0.2)))
         .offset(x: offset.width * 5, y: 0)
+        //fade starts after 50 points away
         .opacity(2 - Double(abs(offset.width / 50)))
         .gesture(
             DragGesture()
