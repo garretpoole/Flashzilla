@@ -16,6 +16,8 @@ struct CardView: View {
     @State private var showingAnswer = false
     @State private var offset = CGSize.zero
     
+    @State private var feedback = UINotificationFeedbackGenerator()
+    
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 25, style: .continuous)
@@ -56,12 +58,16 @@ struct CardView: View {
             DragGesture()
                 .onChanged { gesture in
                     offset = gesture.translation
+                    feedback.prepare()
                 }
                 .onEnded { _ in
                     if abs(offset.width) > 100 {
                         //remove card
+                        if offset.width < 0 {
+                            //may want to think of overuse of haptics so no success haptic just on error
+                            feedback.notificationOccurred(.error)
+                        }
                         removal?()
-                        
                     } else {
                         offset = .zero
                     }
