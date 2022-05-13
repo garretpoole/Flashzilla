@@ -10,6 +10,8 @@ import SwiftUI
 struct CardView: View {
     let card: Card
     var removal: (() -> Void)? = nil
+    //fix flash of red
+    @State private var correct = false
     
     //for red green color blindness
     @Environment(\.accessibilityDifferentiateWithoutColor) var diffWithoutColor
@@ -32,7 +34,7 @@ struct CardView: View {
                     diffWithoutColor
                     ? nil
                     : RoundedRectangle(cornerRadius: 25, style: .continuous)
-                        .fill(offset.width > 0 ? .green : .red)
+                        .fill(correct ? .green : .red)
                 )
                 .shadow(radius: 10)
             
@@ -69,6 +71,11 @@ struct CardView: View {
             DragGesture()
                 .onChanged { gesture in
                     offset = gesture.translation
+                    if offset.width > 0 {
+                        correct = true
+                    } else {
+                        correct = false
+                    }
                     feedback.prepare()
                 }
                 .onEnded { _ in
