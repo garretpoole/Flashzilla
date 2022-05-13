@@ -54,7 +54,7 @@ struct ContentView: View {
                                 removeCard()
                             }
                         }
-                        //.stacked(at: card.index, in: cards.count)
+                        .stacked(at: cards.firstIndex(of: card)!, in: cards.count)
                         //disables swiping cards that are not on top
                         .allowsHitTesting(card == cards.last)
                         //ignores below cards for voice over
