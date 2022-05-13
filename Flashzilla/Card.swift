@@ -7,11 +7,14 @@
 
 import Foundation
 
-struct Card: Codable, Identifiable {
+struct Card: Codable, Identifiable, Equatable {
     var id = UUID()
     let prompt: String
     let answer: String
-    let index: Int
     
-    static let example = Card(prompt: "Who is SF Giants shortstop", answer: "Brandon Crawford", index: 0)
+    static let example = Card(prompt: "Who is SF Giants shortstop", answer: "Brandon Crawford")
+    
+    static func ==(lhs: Card, rhs: Card) -> Bool {
+        return lhs.id == rhs.id && lhs.prompt == rhs.prompt
+    }
 }

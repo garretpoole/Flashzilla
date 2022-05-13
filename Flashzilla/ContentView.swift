@@ -51,14 +51,14 @@ struct ContentView: View {
                     ForEach(cards) { card in
                         CardView(card: card, isCorrect: $isCorrect) {
                             withAnimation {
-                                removeCard(at: cards.count - 1)
+                                removeCard()
                             }
                         }
-                        .stacked(at: card.index, in: cards.count)
+                        //.stacked(at: card.index, in: cards.count)
                         //disables swiping cards that are not on top
-                        .allowsHitTesting(card.index == cards.count - 1)
+                        .allowsHitTesting(card == cards.last)
                         //ignores below cards for voice over
-                        .accessibilityHidden(card.index < cards.count - 1)
+                        .accessibilityHidden(card != cards.last)
                     }
                 }
                 //prohibits swipe after time is 0
@@ -99,7 +99,7 @@ struct ContentView: View {
                         //changed images to Buttons for voice over purposes
                         Button {
                             withAnimation {
-                                removeCard(at: cards.count - 1)
+                                removeCard()
                             }
                         } label: {
                             Image(systemName: "xmark.circle")
@@ -114,7 +114,7 @@ struct ContentView: View {
                         
                         Button {
                             withAnimation {
-                                removeCard(at: cards.count - 1)
+                                removeCard()
                             }
                         } label: {
                             Image(systemName: "checkmark.circle")
@@ -161,14 +161,14 @@ struct ContentView: View {
         }
     }
     
-    func removeCard(at index: Int) {
-        guard index >= 0 else { return }
-        var tempCard = cards.remove(at: index)
+    func removeCard() {
+        guard cards.count >= 0 else { return }
+        var tempCard = cards.removeLast()
         print("Removing")
         if isCorrect == false {
             print("Wrong")
             tempCard.id = UUID()
-            cards.append(tempCard)
+            cards.insert(tempCard, at: 0)
             isCorrect = true
         }
         
