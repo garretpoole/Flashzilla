@@ -14,6 +14,7 @@
 		607838BD282DA57400800EEF /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607838BC282DA57400800EEF /* Card.swift */; };
 		607838BF282DA64000800EEF /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607838BE282DA64000800EEF /* CardView.swift */; };
 		607838C1282E0D8000800EEF /* EditCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607838C0282E0D8000800EEF /* EditCards.swift */; };
+		607838C3282F0E3E00800EEF /* FileManager-DocumentsDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607838C2282F0E3E00800EEF /* FileManager-DocumentsDirectory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		607838BC282DA57400800EEF /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		607838BE282DA64000800EEF /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		607838C0282E0D8000800EEF /* EditCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCards.swift; sourceTree = "<group>"; };
+		607838C2282F0E3E00800EEF /* FileManager-DocumentsDirectory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManager-DocumentsDirectory.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 				607838BE282DA64000800EEF /* CardView.swift */,
 				607838C0282E0D8000800EEF /* EditCards.swift */,
 				607838BC282DA57400800EEF /* Card.swift */,
+				607838C2282F0E3E00800EEF /* FileManager-DocumentsDirectory.swift */,
 				603C80EF282A12F500A25571 /* Assets.xcassets */,
 				603C80F1282A12F500A25571 /* Preview Content */,
 			);
@@ -146,6 +149,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				607838C3282F0E3E00800EEF /* FileManager-DocumentsDirectory.swift in Sources */,
 				603C80EE282A12F400A25571 /* ContentView.swift in Sources */,
 				607838BD282DA57400800EEF /* Card.swift in Sources */,
 				607838BF282DA64000800EEF /* CardView.swift in Sources */,

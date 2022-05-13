@@ -30,6 +30,9 @@ struct ContentView: View {
     //for checking correctness
     @State private var isCorrect = true
     
+    //for saving to disc
+    let savePath = FileManager.documentsDirectory.appendingPathComponent("SavedPlaces")
+    
     var body: some View {
         ZStack {
             Image("background")
@@ -149,12 +152,12 @@ struct ContentView: View {
     }
     
     func loadData() {
-        if let data = UserDefaults.standard.data(forKey: "Cards") {
-            if let decoded = try? JSONDecoder().decode([Card].self, from: data) {
-                cards = decoded
-            } else {
-                cards = []
-            }
+        do {
+            let data = try Data(contentsOf: savePath)
+            cards = try JSONDecoder().decode([Card].self, from: data)
+        } catch {
+            //no saved data
+            cards = []
         }
     }
     
