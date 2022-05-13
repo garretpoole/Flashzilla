@@ -27,6 +27,8 @@ struct ContentView: View {
     @Environment(\.accessibilityVoiceOverEnabled) var voiceOverEnabled
     //adding cards
     @State private var showingEditScreen = false
+    //for checking correctness
+    @State private var isCorrect = true
     
     var body: some View {
         ZStack {
@@ -43,17 +45,17 @@ struct ContentView: View {
                     .clipShape(Capsule())
                 
                 ZStack {
-                    ForEach(0..<cards.count, id: \.self) { index in
-                        CardView(card: cards[index]) {
+                    ForEach(cards) { card in
+                        CardView(card: card, isCorrect: $isCorrect) {
                             withAnimation {
-                                removeCard(at: index)
+                                removeCard(at: cards.count - 1)
                             }
                         }
-                        .stacked(at: index, in: cards.count)
+                        .stacked(at: card.index, in: cards.count)
                         //disables swiping cards that are not on top
-                        .allowsHitTesting(index == cards.count - 1)
+                        .allowsHitTesting(card.index == cards.count - 1)
                         //ignores below cards for voice over
-                        .accessibilityHidden(index < cards.count - 1)
+                        .accessibilityHidden(card.index < cards.count - 1)
                     }
                 }
                 //prohibits swipe after time is 0
@@ -158,7 +160,14 @@ struct ContentView: View {
     
     func removeCard(at index: Int) {
         guard index >= 0 else { return }
-        cards.remove(at: index)
+        var tempCard = cards.remove(at: index)
+        print("Removing")
+        if isCorrect == false {
+            print("Wrong")
+            tempCard.id = UUID()
+            cards.append(tempCard)
+            isCorrect = true
+        }
         
         if cards.isEmpty {
             isActive = false

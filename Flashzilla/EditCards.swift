@@ -69,8 +69,8 @@ struct EditCards: View {
         
         guard trimmedPrompt.isEmpty == false && trimmedAnswer.isEmpty == false else { return }
         
-        let card = Card(prompt: trimmedPrompt, answer: trimmedAnswer)
-        cards.insert(card, at: 0)
+        let card = Card(prompt: trimmedPrompt, answer: trimmedAnswer, index: cards.count)
+        cards.insert(card, at: cards.count)
         saveData()
         newPrompt = ""
         newAnswer = ""

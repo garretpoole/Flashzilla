@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct CardView: View {
-    let card: Card
+    @State var card: Card
+    //for putting cards back in
+    @Binding var isCorrect: Bool
+    
     var removal: (() -> Void)? = nil
     //fix flash of red
     @State private var correct = false
@@ -21,6 +24,9 @@ struct CardView: View {
     @State private var feedback = UINotificationFeedbackGenerator()
     //voice over accessibility
     @Environment(\.accessibilityVoiceOverEnabled) var voiceOverEnabled
+    
+    //for adding cards back in deck
+    //@Binding var isCorrect: Bool
     
     var body: some View {
         ZStack {
@@ -83,6 +89,7 @@ struct CardView: View {
                         //remove card
                         if offset.width < 0 {
                             //may want to think of overuse of haptics so no success haptic just on error
+                            isCorrect = false
                             feedback.notificationOccurred(.error)
                         }
                         removal?()
@@ -99,9 +106,10 @@ struct CardView: View {
     }
 }
 
-struct CardView_Previews: PreviewProvider {
-    static var previews: some View {
-        CardView(card: Card.example)
-            .previewInterfaceOrientation(.landscapeRight)
-    }
-}
+//struct CardView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        let ex = true
+//        CardView(card: Card.example)
+//            .previewInterfaceOrientation(.landscapeRight)
+//    }
+//}
